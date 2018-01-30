@@ -147,9 +147,21 @@ Theta1_grad = delta1 /m;
 
 Theta2_grad = delta2 /m;
 
+% step 8 first column theta1 and theta2 to all-zeros
 
+Theta1(:, 1) = 0;
+Theta2(:, 1) = 0;
 
+% step 9 Scale each Theta matrix by ?/m
+Theta1 = Theta1 .* (lambda / m);
+Theta2 = Theta2 .* (lambda / m);
 
+% 10: Add each of these modified-and-scaled Theta matrices to 
+% the un-regularized Theta gradients that you computed earlier.
+
+Theta1_grad = Theta1_grad + Theta1;
+
+Theta2_grad = Theta2_grad + Theta2;
 
 
 % -------------------------------------------------------------
