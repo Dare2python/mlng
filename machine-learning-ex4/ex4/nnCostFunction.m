@@ -98,32 +98,54 @@ J = J + lambda/(2*m)*( sum(sum( Theta1(:, 2:end) .^2 )) + ...
 
 
 
-%part 2
+% part 2
 dd = 0;
 
-for i = 1:m
-    %step 1
-    a2 = sigmoid(Theta1 * Xe(i,:)');
-    a2 = [1; a2];
-    h = sigmoid(Theta2 * a2);
-    
-    %step 2
-    yk = double( (1:num_labels) == y(i) );
-    d3 = h - yk';
-    
-    %step 3
-    z2 = Theta1 * Xe(i,:)';
-    d2 = Theta2(:, 2:end)' * d3 .* sigmoidGradient( z2 );
-    
-    %step 4
-    Theta1_grad = Theta1_grad + d2 * Xe(i,:)';
-    Theta2_grad = Theta2_grad + d3 * a2;
-end
+% using the Tutorial https://www.coursera.org/learn/machine-learning/discussions/all/threads/a8Kce_WxEeS16yIACyoj1Q
 
+% step 2 d3
+d3 = h' - yl;
+% a3 = h
+% y_matrix = y in logical format compared against output vector
+% (1:num_labels)
 
-Theta1_grad = Theta1_grad /m;
+% step 3 z2
+% why do we need z2? - then element-wise scaled by sigmoid gradient of z2
+z2 = Xe * Theta1';
 
-Theta2_grad = Theta2_grad /m;
+% step 4 d2
+d2 = d3 * Theta2(:, 2:end) .* sigmoidGradient( z2 );
+
+% step 5 delta1
+delta1 = d2' * Xe;
+% a1 = Xe
+
+% step 6 delta2
+delta2 = d3' * a2';
+
+%for i = 1:m
+%    %step 1
+%    a2 = sigmoid(Theta1 * Xe(i,:)');
+%    a2 = [1; a2];
+%    h = sigmoid(Theta2 * a2);
+%    
+%    %step 2
+%    yk = double( (1:num_labels) == y(i) );
+%    d3 = h - yk';
+%    
+%    %step 3
+%    z2 = Theta1 * Xe(i,:)';
+%    d2 = Theta2(:, 2:end)' * d3 .* sigmoidGradient( z2 );
+%    
+%    %step 4
+%    Theta1_grad = Theta1_grad + d2 * Xe(i,:)';
+%    Theta2_grad = Theta2_grad + d3 * a2;
+%end
+
+% step 7
+Theta1_grad = delta1 /m;
+
+Theta2_grad = delta2 /m;
 
 
 
