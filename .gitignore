@@ -1,0 +1,11 @@
+# MatLab Examples
+Examples/
+
+# Zip files
+*.zip
+
+# MatLab backup files
+*.m~
+
+# MacOS stuff
+.DS_Store
