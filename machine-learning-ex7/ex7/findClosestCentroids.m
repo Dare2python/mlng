@@ -21,11 +21,20 @@ idx = zeros(size(X,1), 1);
 % Note: You can use a for-loop over the examples to compute this.
 %
 
-
-
-
-
-
+for i = 1 : size(X,1)
+%    for j = 1 : K % size(centroids, 1)
+%        
+%    end
+    % vectorize?
+    Xc = [];
+    for j = 1:size(centroids, 1)
+        Xc = [Xc ; X(i,:)];
+    end
+    % sum( (x1 - x2).^2 )
+    to_min = sum( (Xc - centroids).^2 , 2);
+    [mm, ii] = min(to_min);
+    idx(i) = ii;
+end
 
 % =============================================================
 
