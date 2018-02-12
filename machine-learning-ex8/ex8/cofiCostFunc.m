@@ -44,10 +44,10 @@ c = 1/2*sum(sum( ( (X * Theta' - Y).* R ).^2 ));
 J = c + lambda/2*sum(sum(Theta .^2)) + lambda/2*sum(sum(X .^2));
 
 Xr = (X * Theta' - Y) .* R;
-X_grad = Xr * Theta ;
+X_grad = Xr * Theta + lambda*X;
 
 Xr = (X * Theta' - Y) .* R;
-Theta_grad = Xr' * X ;
+Theta_grad = Xr' * X + lambda*Theta;
 
 % =============================================================
 
